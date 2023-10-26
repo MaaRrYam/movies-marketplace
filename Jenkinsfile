@@ -3,7 +3,10 @@ def registry = 'https://registry.slowcoder.com'
 
 node('workers'){
     stage('Checkout'){
-        checkout scm
+        git branch: 'develop',
+         credentialsId: 'github-ssh',
+         url: 'git@github.com:mlabouardy/movies-loader.git'
+          checkout scm
     }
 
     def imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
